@@ -1,8 +1,10 @@
+# -*- coding: utf8 -*-
+
 import os
 import sys
-from PyQt5.QtCore import QTimer, Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QAction, QInputDialog
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 
 import requests
 
@@ -35,12 +37,12 @@ def update_system_tray_icon():
         if has_active_alerts:
             tray_icon.setIcon(QIcon(ICON_RED))
             if previous_status is None or previous_status == "safe":
-                tray_icon.showMessage("Повітряна тривога", "There are active alerts!", QSystemTrayIcon.Critical, 5000)
+                tray_icon.showMessage("Повітряна тривога", "There are active alerts!", QSystemTrayIcon.MessageIcon.Information, 5000)
         else:
             tray_icon.setIcon(QIcon(ICON_GREEN))
             if previous_status == "active":
                 tray_icon.showMessage("Відбій повітрянної тривоги", "The air alarm has been lifted",
-                                       QSystemTrayIcon.Information, 5000)
+                                       QSystemTrayIcon.MessageIcon.Information, 5000)
 
         previous_status = "active" if has_active_alerts else "safe"
 
@@ -90,4 +92,4 @@ if __name__ == "__main__":
 
     tray_icon = create_system_tray_icon()
 
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
